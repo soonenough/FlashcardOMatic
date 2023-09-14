@@ -3,6 +3,7 @@ import StudyCard from '../Cards/StudyCard';
 import Header from './Header';
 
 function Study() {
+
   return (
     <>
       <Header />

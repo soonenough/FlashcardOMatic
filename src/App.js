@@ -14,39 +14,38 @@ function App() {
   return (
     <div className="app-routes">
       <Switch>
-        
-        <Route path="/decks/new">
-          <CreateDeck />
-        </Route>
+  <Route path="/decks/new">
+    <CreateDeck />
+  </Route>
 
-        <Route path="/decks/:deckId/study/">
-          <Study />
-        </Route>
+  <Route path="/decks/:deckId/study/">
+    <Study />
+  </Route>
 
-        <Route path="/decks/:deckId/edit">
-          <EditDeck />
-        </Route>
+  <Route path="/decks/:deckId/edit">
+    <EditDeck />
+  </Route>
 
-        <Route path="/decks/:deckId/cards/new">
-          <CreateCard />
-        </Route>
+  <Route path="/decks/:deckId/cards/new">
+    <CreateCard />
+  </Route>
 
-        <Route path="/decks/:deckId/cards/:cardId/edit">
-          <EditCard />
-        </Route>
+  <Route path="/decks/:deckId/cards/:cardId/edit">
+    <EditCard />
+  </Route>
 
-        <Route path="/decks/:deckId">
-          <ViewDeck />
-        </Route>
+  <Route path="/decks/:deckId">
+    <ViewDeck />
+  </Route>
 
-        <Route path="/">
-          <Layout />
-        </Route>
+  <Route path="/" exact> {/* Specify "exact" for the root path */}
+    <Layout />
+  </Route>
 
-        <Route>
-          <NotFound />
-        </Route>
-      </Switch>
+  <Route> {/* No path specified, acts as a catch-all route */}
+    <NotFound />
+  </Route>
+</Switch>
     </div>
   );
 }

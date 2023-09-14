@@ -3,24 +3,31 @@ import { listDecks } from '../utils/api';
 import ViewButton from '../Home/ViewButton';
 import StudyButton from '../Home/StudyButton';
 import DeleteButton from '../Home/DeleteDeckButton';
+import { useParams } from 'react-router-dom';
 
 function HomeDeck() {
   const [decks, setDecks] = useState([]);
+  const [cards, setCards] = useState([]);
+  const { deckId } = useParams();
 
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    const fetchDecks = async () => {
+    const fetchDecksAndCards = async () => {
       try {
         const allDecks = await listDecks(signal);
         setDecks(allDecks);
+
+        // Extract all cards from the fetched decks
+        const allCards = allDecks.flatMap(deck => deck.cards);
+        setCards(allCards);
       } catch (error) {
         console.error('Error fetching deck data:', error);
       }
     };
 
-    fetchDecks();
+    fetchDecksAndCards();
 
     return () => {
       controller.abort();
@@ -33,7 +40,14 @@ function HomeDeck() {
         <div className="col-sm-6" key={deck.id}>
           <div className="card">
             <div className="card-body">
-              <h5 className="card-title">{deck.name}</h5>
+              <div className="row">
+                <div className="col-lg">
+                  <h5 className="card-title">{deck.name}</h5>
+                </div>
+                <div className="col-sm-auto">
+                  <h5>{cards.filter(card => card.deckId === deck.id).length} Cards</h5>
+                </div>
+              </div>
               <p className="card-text">{deck.description}</p>
               <div className="row">
                 <div className="col-md-auto">

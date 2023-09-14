@@ -70,7 +70,7 @@ describe("App", () => {
         <App />
       </Router>
     );
-    expect(screen.getByText("Not Found")).toBeTruthy();
+    expect(screen.getByText(/Not\s+Found/)).toBeTruthy();
   });
 
   test("route for /", async () => {

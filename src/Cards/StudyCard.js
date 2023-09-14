@@ -42,17 +42,21 @@ function StudyCard() {
         <div className="card-body">
           <div className="col">
             <div className="row">
-              <h5>{cardId}</h5> {/* Display corrected count */}
-            </div>
-            <div className="row">
+              <div className="col-lg">
               {/* Display the front or back of the card based on flip state */}
               {card && (isFlipped ? card.back : card.front)}
+              </div>
+              <div className="col-sm-auto">
+              <h5>{cardId} out of</h5>
+            </div>
             </div>
             <div className="row">
+              <div className="col-lg">
               {/* Button to flip the card */}
               <button type="button" className="btn btn-secondary" onClick={handleFlip}>
                 Flip
               </button>
+              </div>
               {isFlipped && (
                 <button type="button" className="btn btn-primary mx-3" onClick={handleNext}>
                   Next

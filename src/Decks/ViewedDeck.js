@@ -2,9 +2,6 @@ import StudyButton from "../Home/StudyButton";
 import DeleteButton from "../Home/DeleteDeckButton";
 import AddCardsButton from "../Home/AddCardsButton";
 import EditButton from "../Home/EditDeckButton";
-import EditCardButton from "../Cards/EditCardButton";
-// import DeleteCardButton from "../Cards/DeleteCardButton";
-import { listCards } from "../utils/api";
 import FullCard from "../Cards/FullCard"
 import BreadCrumbNav from "../Layout/BreadCrumbNav";
 import { readDeck } from "../utils/api";
@@ -14,28 +11,6 @@ import { useParams } from 'react-router-dom';
 function ViewedDeck() {
   const { deckId } = useParams();
   const [deck, setDeck] = useState(null);
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-
-    const fetchCards = async () => {
-      try {
-
-        const response = await listCards(signal, deckId);
-        setCards(response.cards);
-      } catch (error) {
-        console.error('Error fetching card data:', error);
-      }
-    };
-
-    fetchCards();
-
-    return () => {
-      controller.abort();
-    };
-  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -92,30 +67,7 @@ function ViewedDeck() {
 
     </div>
     <div className="container">
-    {cards.map(card => (
-        <div className="card" key={card.id}>
-          <div className="card-body">
-            <div className="row">
-              <div className="col">
-                {card.front}
-              </div>
-              <div className="col">
-                {card.back}
-              </div>
-            </div>
-            <div className="col">
-              <div className="row justify-content-end">
-                <div className="col-md-auto">
-                  <EditCardButton cardId={card.id} deckId={card.deckId} />
-                </div>
-                <div className="col-md-auto">
-                  <DeleteButton cardId={card.id} deckId={card.deckId} />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      ))}
+    <FullCard />
     </div>
     </div>
 </div>
