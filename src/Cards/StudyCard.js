@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { readCard } from "../utils/api";
 import { readDeck } from "../utils/api";
+import { listCards } from "../utils/api";
 import { useParams, Link, useLocation, useHistory } from 'react-router-dom'; // Import useHistory
 import { HouseFill } from 'react-bootstrap-icons';
 
@@ -9,6 +10,7 @@ function StudyCard() {
 
   const [isFlipped, setIsFlipped] = useState(false);
   const [card, setCard] = useState(null);
+  const [cards, setCards] = useState(null);
   const [cardId, setCardId] = useState(1);
   const [deck, setDeck] = useState(null);
 
@@ -33,6 +35,27 @@ function StudyCard() {
   }, [deckId]);
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    const fetchCards = async () => {
+      try {
+
+        const response = await listCards(signal, deckId);
+        setCards(response.cards);
+      } catch (error) {
+        console.error('Error fetching card data:', error);
+      }
+    };
+
+    fetchCards();
+
+    return () => {
+      controller.abort();
+    };
+  }, []);
+
+  useEffect(() => {
     const fetchCard = async () => {
       try {
         const response = await readCard(cardId);
@@ -49,49 +72,70 @@ function StudyCard() {
     setIsFlipped(!isFlipped);
   };
 
+  const cardsArray = cards || [];
+
   const handleNext = () => {
     setCardId(cardId + 1);
     setIsFlipped(false);
     setCard(null);
   };
 
-  return (
-    <div className="container">
-      <nav aria-label="breadcrumb">
-        <ol className="breadcrumb">
-          <li className="breadcrumb-item"><Link to="/"><HouseFill /> Home</Link></li> 
-          {deck && <li className="breadcrumb-item"><Link>{deck.name}</Link></li>}
-          <li className="breadcrumb-item">Study</li>
-        </ol>
-      </nav>
-      <div className="card">
-        <div className="card-body">
-          <div className="col">
-            <div className="row">
-              <div className="col-lg">
-                {card && (isFlipped ? card.back : card.front)}
+
+  if(cardsArray.length > 2){
+    return(
+      <div className="container">
+        <nav aria-label="breadcrumb">
+          <ol className="breadcrumb">
+            <li className="breadcrumb-item"><Link to="/"><HouseFill /> Home</Link></li> 
+            {deck && <li className="breadcrumb-item"><Link to={`/decks/${deckId}`}>{deck.name}</Link></li>}
+            <li className="breadcrumb-item">Study</li>
+          </ol>
+        </nav>
+        <div className="card">
+          <div className="card-body">
+            <div className="col">
+              <div className="row">
+                <div className="col-lg">
+                  {card && (isFlipped ? card.back : card.front)}
+                </div>
+                <div className="col-sm-auto">
+                  <h5>Card {cardId} of</h5>
+                </div>
               </div>
-              <div className="col-sm-auto">
-                <h5>Card {cardId} of</h5>
+              <div className="row">
+                <div className="col-lg">
+                  <button type="button" className="btn btn-secondary" onClick={handleFlip}>
+                    Flip
+                  </button>
+                </div>
+                {isFlipped && (
+                  <button type="button" className="btn btn-primary mx-3" onClick={handleNext}>
+                    Next
+                  </button>
+                )}
               </div>
-            </div>
-            <div className="row">
-              <div className="col-lg">
-                <button type="button" className="btn btn-secondary" onClick={handleFlip}>
-                  Flip
-                </button>
-              </div>
-              {isFlipped && (
-                <button type="button" className="btn btn-primary mx-3" onClick={handleNext}>
-                  Next
-                </button>
-              )}
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    )
+  } else {
+    return (
+      <>
+      <div className="container">
+        <nav aria-label="breadcrumb">
+          <ol className="breadcrumb">
+            <li className="breadcrumb-item"><Link to="/"><HouseFill /> Home</Link></li> 
+            {deck && <li className="breadcrumb-item"><Link to={`/decks/${deckId}`}>{deck.name}</Link></li>}
+            <li className="breadcrumb-item">Study</li>
+          </ol>
+        </nav>
+      </div>
+      <h1>Not Enough Cards</h1>
+      </>
+
+    );
+  }
 }
 
 export default StudyCard;
