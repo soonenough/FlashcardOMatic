@@ -8,7 +8,6 @@ import { useParams } from 'react-router-dom';
 function HomeDeck() {
   const [decks, setDecks] = useState([]);
   const [cards, setCards] = useState([]);
-  const { deckId } = useParams();
 
   useEffect(() => {
     const controller = new AbortController();

@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
-import { readDeck } from '../utils/api';
+import { readDeck, listDecks } from '../utils/api'; // Assuming you have an API function to list all decks
 import ViewButton from '../Home/ViewButton';
 import StudyButton from '../Home/StudyButton';
 import DeleteButton from '../Home/TrashButton';
@@ -17,9 +18,16 @@ function Deck() {
       }
     };
 
-    const deckIds = [1, 2]; // Add more deck IDs if needed
+    const fetchDataForAllDecks = async () => {
+      try {
+        const deckIds = await listDecks(); // Assuming listDecks() returns an array of deck IDs
+        deckIds.forEach(id => fetchDeckData(id));
+      } catch (error) {
+        console.error('Error fetching deck IDs:', error);
+      }
+    };
 
-    deckIds.forEach(id => fetchDeckData(id));
+    fetchDataForAllDecks();
 
     return () => {
       // Cleanup if needed
