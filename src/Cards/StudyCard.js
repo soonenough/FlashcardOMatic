@@ -75,18 +75,23 @@ function StudyCard() {
   const cardsArray = cards || [];
 
   const handleNext = () => {
-    setCardId(cardId + 1);
-    setIsFlipped(false);
-    setCard(null);
+    if (cardId === cards.length) {
+      setCardId(1)
+    } else {
+      setCardId(cardId + 1);
+      setIsFlipped(false);
+      setCard(null);
+    }
   };
 
+  console.log(cards);
 
-  if(cardsArray.length > 3){
-    return(
+  if (cardsArray.length > 2) {
+    return (
       <div className="container">
         <nav aria-label="breadcrumb">
           <ol className="breadcrumb">
-            <li className="breadcrumb-item"><Link to="/"><HouseFill /> Home</Link></li> 
+            <li className="breadcrumb-item"><Link to="/"><HouseFill /> Home</Link></li>
             {deck && <li className="breadcrumb-item"><Link to={`/decks/${deckId}`}>{deck.name}</Link></li>}
             <li className="breadcrumb-item">Study</li>
           </ol>
@@ -99,7 +104,7 @@ function StudyCard() {
                   {card && (isFlipped ? card.back : card.front)}
                 </div>
                 <div className="col-sm-auto">
-                  <h5>Card {cardId} of</h5>
+                  <h5>Card {cardId} of {cards.length}</h5>
                 </div>
               </div>
               <div className="row">
@@ -122,16 +127,16 @@ function StudyCard() {
   } else {
     return (
       <>
-      <div className="container">
-        <nav aria-label="breadcrumb">
-          <ol className="breadcrumb">
-            <li className="breadcrumb-item"><Link to="/"><HouseFill /> Home</Link></li> 
-            {deck && <li className="breadcrumb-item"><Link to={`/decks/${deckId}`}>{deck.name}</Link></li>}
-            <li className="breadcrumb-item">Study</li>
-          </ol>
-        </nav>
-      </div>
-      <h1>Not Enough Cards</h1>
+        <div className="container">
+          <nav aria-label="breadcrumb">
+            <ol className="breadcrumb">
+              <li className="breadcrumb-item"><Link to="/"><HouseFill /> Home</Link></li>
+              {deck && <li className="breadcrumb-item"><Link to={`/decks/${deckId}`}>{deck.name}</Link></li>}
+              <li className="breadcrumb-item">Study</li>
+            </ol>
+          </nav>
+        </div>
+        <h1>Not Enough Cards</h1>
       </>
 
     );

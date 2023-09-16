@@ -9,6 +9,16 @@
       "id": 2,
       "name": "React Router",
       "description": "React Router is a collection of navigational components that compose declaratively with your application."
+    },
+    {
+      "id": 73,
+      "name": "Mock Study Deck 73",
+      "description": "MDS42"
+    },
+    {
+      "name": "Mock Deck 3",
+      "description": "MD",
+      "id": 3
     }
   ],
   "cards": [
@@ -31,16 +41,40 @@
       "deckId": 1
     },
     {
+      "id": 4,
       "front": "What path will match the follow Route?\n<Route>\n  <NotFound />\n</Route>",
-      "back": "All paths. A route with no path matches all URL's",
-      "deckId": 2,
-      "id": 4
+      "back": "All paths. A route with no path matches all URLs",
+      "deckId": 2
     },
     {
+      "id": 5,
       "front": "What does <Switch> do?",
       "back": "Renders the first matching child <Route> ",
-      "deckId": 2,
-      "id": 5
+      "deckId": 2
+    },
+    {
+      "id": 74,
+      "front": "What do you call a droid that takes the long way around?",
+      "back": "R2 detour.",
+      "deckId": 73
+    },
+    {
+      "id": 75,
+      "front": "Why was 6 afraid of 7?",
+      "back": "Because 7, 8 (ate), 9",
+      "deckId": 73
+    },
+    {
+      "id": 76,
+      "front": "When does a joke become a “dad” joke?",
+      "back": "When the punchline is a parent.",
+      "deckId": 73
+    },
+    {
+      "id": 4,
+      "front": "What has ears but cannot hear?",
+      "back": "A cornfield.",
+      "deckId": 3
     }
   ]
 }

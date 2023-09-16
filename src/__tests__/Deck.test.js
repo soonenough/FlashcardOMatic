@@ -268,19 +268,19 @@ describe("Decks", () => {
           id: 74,
           front: "What do you call a droid that takes the long way around?",
           back: "R2 detour.",
-          deckId: 73,
+          deckId: 73
         },
         {
           id: 75,
           front: "Why was 6 afraid of 7?",
           back: "Because 7, 8 (ate), 9",
-          deckId: 42,
+          deckId: 73
         },
         {
           id: 76,
           front: "When does a joke become a “dad” joke?",
           back: "When the punchline is a parent.",
-          deckId: 73,
+          deckId: 73
         },
       ],
     };
