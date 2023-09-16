@@ -8,8 +8,6 @@ function EditDeck(){
         <Header />
         
         <div className="container">
-        <BreadCrumbNav currentItem={"Edit Deck"} />
-            <h1>Edit Deck</h1>
             <DeckForm />
         </div>
         </>

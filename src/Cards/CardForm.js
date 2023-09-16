@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams, Link, useLocation, useHistory } from 'react-router-dom'; // Import useHistory
+import { HouseFill } from 'react-bootstrap-icons';
 import { updateCard, createCard, readCard } from "../utils/api";
 import { createDeck, updateDeck, readDeck } from "../utils/api"; // Import readDeck
 import BreadCrumbNav from "../Layout/BreadCrumbNav";
@@ -41,43 +42,50 @@ function CardForm() {
 
   useEffect(() => {
     const fetchCard = async () => {
-        try {
-            const cardData = await readCard(cardId);
-            setCard(cardData);
-            setFront(cardData.front);
-            setBack(cardData.back);
-        } catch (error) {
-            console.error('Error fetching deck data:', error);
-        }
+      try {
+        const cardData = await readCard(cardId);
+        setCard(cardData);
+        setFront(cardData.front);
+        setBack(cardData.back);
+      } catch (error) {
+        console.error('Error fetching deck data:', error);
+      }
     };
 
     if (cardId) {
-        fetchCard();
+      fetchCard();
     }
-}, [cardId]);
+  }, [cardId]);
 
-useEffect(() => {
-  const fetchDeck = async () => {
+  useEffect(() => {
+    const fetchDeck = async () => {
       try {
-          const deckData = await readDeck(deckId);
-          setDeck(deckData);
-          setName(deckData.name);
-          setDescription(deckData.description);
+        const deckData = await readDeck(deckId);
+        setDeck(deckData);
+        setName(deckData.name);
+        setDescription(deckData.description);
       } catch (error) {
-          console.error('Error fetching deck data:', error);
+        console.error('Error fetching deck data:', error);
       }
-  };
+    };
 
-  if (deckId) {
+    if (deckId) {
       fetchDeck();
-  }
-}, [deckId]);
+    }
+  }, [deckId]);
 
   return (
     <>
-           <BreadCrumbNav currentItem={deck ? "Edit Deck" : 'New Deck'}/>
-            <h1>Edit Card</h1>
-          <form onSubmit={submitHandler}>
+      <nav aria-label="breadcrumb">
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item"><Link to="/"><HouseFill /> Home</Link></li>
+          <li className="breadcrumb-item">Decks</li>
+          {deck && <li className="breadcrumb-item"><Link to={`/decks/${deckId}`}>{deck.name}</Link></li>}
+          <li className="breadcrumb-item">{card ? "Edit Card" : 'Add Card'}</li>
+        </ol>
+      </nav>
+      <h1>{card ? "Edit Card" : 'Add Card'}</h1>
+      <form onSubmit={submitHandler}>
         <div className="form-group">
           <div className="form-group">
             <label htmlFor="front">Front</label>
@@ -108,9 +116,9 @@ useEffect(() => {
               </button>
             </div>
             <div className="col-md-auto">
-            <button type="submit" className="btn btn-secondary">
-              Submit
-            </button>
+              <button type="submit" className="btn btn-secondary">
+                Submit
+              </button>
             </div>
           </div>
         </div>

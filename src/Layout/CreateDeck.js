@@ -12,8 +12,6 @@ function CreateDeck() {
         <>
             <Header />
             <div className="container">
-                <BreadCrumbNav paths={breadcrumbPaths} />
-                <h1>Create Deck</h1>
                 <DeckForm />
             </div>
         </>

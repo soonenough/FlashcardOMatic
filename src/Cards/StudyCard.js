@@ -81,7 +81,7 @@ function StudyCard() {
   };
 
 
-  if(cardsArray.length > 2){
+  if(cardsArray.length > 3){
     return(
       <div className="container">
         <nav aria-label="breadcrumb">
