@@ -3,7 +3,6 @@ import { listDecks } from '../utils/api';
 import ViewButton from '../Home/ViewButton';
 import StudyButton from '../Home/StudyButton';
 import DeleteButton from '../Home/DeleteDeckButton';
-import { useParams } from 'react-router-dom';
 
 function HomeDeck() {
   const [decks, setDecks] = useState([]);
@@ -18,7 +17,6 @@ function HomeDeck() {
         const allDecks = await listDecks(signal);
         setDecks(allDecks);
 
-        // Extract all cards from the fetched decks
         const allCards = allDecks.flatMap(deck => deck.cards);
         setCards(allCards);
       } catch (error) {
@@ -44,7 +42,7 @@ function HomeDeck() {
                   <h5 className="card-title">{deck.name}</h5>
                 </div>
                 <div className="col-sm-auto">
-                  <h5>{cards.filter(card => card.deckId === deck.id).length} Cards</h5>
+                  <h5>{cards.filter(card => card.deckId === deck.id).length} cards</h5>
                 </div>
               </div>
               <p className="card-text">{deck.description}</p>

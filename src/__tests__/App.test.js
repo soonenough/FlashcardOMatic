@@ -76,10 +76,23 @@ describe("App", () => {
   test("route for /", async () => {
     const mockDecks = [
       {
-        id: 1,
         name: "Mock Rendering in React",
-        description: "RIR",
-        cards: [{ id: 2 }, { id: 3 }],
+        description: "MDS42",
+        id: 73,
+        cards: [
+          {
+            id: 74,
+            front: "What do you call a droid that takes the long way around?",
+            back: "R2 detour.",
+            deckId: 73
+          },
+          {
+            id: 75,
+            front: "Why was 6 afraid of 7?",
+            back: "Because 7, 8 (ate), 9",
+            deckId: 73
+          },
+        ],
       },
       {
         name: "Mock React Router",

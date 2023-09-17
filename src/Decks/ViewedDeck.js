@@ -4,13 +4,14 @@ import AddCardsButton from "../Home/AddCardsButton";
 import EditButton from "../Home/EditDeckButton";
 import FullCard from "../Cards/FullCard"
 import BreadCrumbNav from "../Layout/BreadCrumbNav";
-import { readDeck } from "../utils/api";
+import { listCards, readDeck } from "../utils/api";
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 function ViewedDeck() {
   const { deckId } = useParams();
   const [deck, setDeck] = useState(null);
+  const [cards, setCards] = useState();
 
   useEffect(() => {
     const controller = new AbortController();

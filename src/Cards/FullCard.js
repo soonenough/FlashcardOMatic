@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import EditCardButton from './EditCardButton';
 import DeleteCardButton from './DeleteCardButon';
-import { readDeck } from '../utils/api';
+import { readDeck, listCards } from '../utils/api';
 import { useParams } from 'react-router-dom';
 
 
@@ -12,27 +12,26 @@ function FullCard() {
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
-
-    const fetchCards = async () => {
+  
+    const fetchDeck = async () => {
       try {
-
-        const response = await readDeck(signal, deckId);
+        const response = await readDeck(deckId, signal);
         setCards(response.cards);
       } catch (error) {
-        console.error('Error fetching card data:', error);
+        console.error('Error fetching deck data:', error);
       }
     };
-
-    fetchCards();
-
+  
+    fetchDeck();
+  
     return () => {
       controller.abort();
     };
-  }, []);
+  }, [deckId]);
 
   return (
     <>
-      {cards.map(card => (
+      {cards.map((card) => ( 
         <div className="card" key={card.id}>
           <div className="card-body">
             <div className="row">
