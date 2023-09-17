@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { readCard } from "../utils/api";
 import { readDeck } from "../utils/api";
-import { listCards } from "../utils/api";
-import { useParams, Link, useLocation, useHistory } from 'react-router-dom'; // Import useHistory
+import { useParams, Link } from 'react-router-dom'; // Import useHistory
 import { HouseFill } from 'react-bootstrap-icons';
 
 function StudyCard() {
@@ -41,7 +40,7 @@ function StudyCard() {
     const fetchCards = async () => {
       try {
 
-        const response = await listCards(signal, deckId);
+        const response = await readDeck(signal, deckId);
         setCards(response.cards);
       } catch (error) {
         console.error('Error fetching card data:', error);
@@ -76,15 +75,14 @@ function StudyCard() {
 
   const handleNext = () => {
     if (cardId === cards.length) {
-      setCardId(1)
+      setCardId(1);
+      setIsFlipped(false);
     } else {
       setCardId(cardId + 1);
       setIsFlipped(false);
       setCard(null);
     }
   };
-
-  console.log(cards);
 
   if (cardsArray.length > 2) {
     return (
