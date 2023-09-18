@@ -34,25 +34,23 @@ function StudyCard() {
   }, [deckId]);
 
   useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
 
     const fetchCards = async () => {
-      try {
-
-        const response = await readDeck(signal, deckId);
-        setCards(response.cards);
-      } catch (error) {
-        console.error('Error fetching card data:', error);
-      }
+        try {
+            const deckData = await readDeck(deckId);
+            setDeck(deckData);
+            setCards(deckData.cards);
+        } catch (error) {
+            console.error('Error fetching deck data:', error);
+        }
     };
 
-    fetchCards();
+    if (deckId) {
+        fetchCards();
+    }
+}, [deckId]);
 
-    return () => {
-      controller.abort();
-    };
-  }, []);
+  
 
   useEffect(() => {
     const fetchCard = async () => {

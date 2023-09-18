@@ -3,9 +3,6 @@ import { createDeck } from "../utils/api";
 import { PlusCircleFill } from 'react-bootstrap-icons';
 
 function CreateDeckButton() {
-    const handleCreateDeck = () => {
-        createDeck();
-    };
 
     const buttonStyle = {
         alignItems: 'center',
@@ -18,7 +15,7 @@ function CreateDeckButton() {
     };
 
     return (
-        <a href="/decks/new" className="btn btn-secondary" onClick={handleCreateDeck} style={buttonStyle}>
+        <a href="/decks/new" className="btn btn-secondary" style={buttonStyle}>
             <PlusCircleFill style={iconStyle} /> Create Deck
         </a>
     );

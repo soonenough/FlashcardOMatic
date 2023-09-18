@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link, useLocation, useHistory } from 'react-router-dom'; // Import useHistory
+import { useParams, Link, useHistory } from 'react-router-dom'; // Import useHistory
 import { HouseFill } from 'react-bootstrap-icons';
 import { createDeck, updateDeck, readDeck } from "../utils/api"; // Import readDeck
 
-function DeckForm() {
+function DeckForm({ signal }) {
     const { deckId } = useParams();
+    console.log("Deck ID:", deckId);
     const history = useHistory();
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -13,6 +14,7 @@ function DeckForm() {
     useEffect(() => {
         const fetchDeck = async () => {
             try {
+                console.log('Fetching deck with ID:', deckId);
                 const deckData = await readDeck(deckId);
                 setDeck(deckData);
                 setName(deckData.name);
@@ -33,20 +35,20 @@ function DeckForm() {
 
     const submitHandler = async (event) => {
         event.preventDefault();
-
+    
         try {
             const deckData = {
                 name: name,
                 description: description,
             };
-
+    
             if (deckId) {
-                await updateDeck(deckId, deckData);
+                await updateDeck(deckId, deckData, signal);
             } else {
                 await createDeck(deckData);
             }
-
-            history.push('/');
+    
+            history.goBack();
         } catch (error) {
             console.error('Error submitting deck:', error);
         }

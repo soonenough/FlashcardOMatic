@@ -123,8 +123,8 @@ export async function readDeck(deckId, signal) {
  * @returns {Promise<Error|*>}
  *  a promise that resolves to the updated deck.
  */
-export async function updateDeck(updatedDeck, signal) {
-  const url = `${API_BASE_URL}/decks/${updatedDeck.id}?_embed=cards`;
+export async function updateDeck(updatedDeckid, updatedDeck, signal) {
+  const url = `${API_BASE_URL}/decks/${updatedDeckid}?_embed=cards`;
   const options = {
     method: "PUT",
     headers,

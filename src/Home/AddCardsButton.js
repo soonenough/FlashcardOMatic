@@ -3,9 +3,6 @@ import { PlusCircleFill } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 
 function AddCardsButton({ deckId }) {
-  const handleCreateCard = () => {
-    createCard(deckId);
-  };
 
   const buttonStyle = {
     alignItems: 'center',
@@ -18,7 +15,7 @@ function AddCardsButton({ deckId }) {
   };
 
   return (
-    <Link to={`/decks/${deckId}/cards/new`} className="btn btn-secondary" onClick={handleCreateCard} style={buttonStyle}>
+    <Link to={`/decks/${deckId}/cards/new`} className="btn btn-secondary" style={buttonStyle}>
       <PlusCircleFill style={iconStyle} /> Create Card
     </Link>
   );
