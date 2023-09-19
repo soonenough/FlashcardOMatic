@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link, useLocation, useHistory } from 'react-router-dom'; // Import useHistory
+import { useParams, Link, useHistory } from 'react-router-dom';
 import { HouseFill } from 'react-bootstrap-icons';
 import { updateCard, createCard, readCard } from "../utils/api";
-import { createDeck, updateDeck, readDeck } from "../utils/api"; // Import readDeck
-import BreadCrumbNav from "../Layout/BreadCrumbNav";
+import { readDeck } from "../utils/api";
 
 function CardForm() {
   const { cardId, deckId } = useParams();
   const history = useHistory();
-  const [card, setCard] = useState('')
   const [front, setFront] = useState('');
   const [back, setBack] = useState('');
   const [deck, setDeck] = useState(null);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+
+  const [card, setCard] = useState(null);
 
   const goBack = () => {
     history.goBack();
@@ -34,7 +34,8 @@ function CardForm() {
         await createCard(deckId, cardData);
       }
 
-      history.push('/');
+      setFront('');
+      setBack('');
     } catch (error) {
       console.error('Error submitting card:', error);
     }
@@ -48,7 +49,7 @@ function CardForm() {
         setFront(cardData.front);
         setBack(cardData.back);
       } catch (error) {
-        console.error('Error fetching deck data:', error);
+        console.error('Error fetching card data:', error);
       }
     };
 
@@ -74,6 +75,10 @@ function CardForm() {
     }
   }, [deckId]);
 
+  if (!deck) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <nav aria-label="breadcrumb">
@@ -84,7 +89,11 @@ function CardForm() {
           <li className="breadcrumb-item">{card ? "Edit Card" : 'Add Card'}</li>
         </ol>
       </nav>
-      <h1>{card ? "Edit Card" : 'Add Card'}</h1>
+      <div class="d-flex justify-content-center">
+        <div className="col-sm">
+          <h1>{card ? "Edit Card" : 'Add Card'}</h1>
+        </div>
+      </div>
       <form onSubmit={submitHandler}>
         <div className="form-group">
           <div className="form-group">
@@ -112,12 +121,12 @@ function CardForm() {
           <div className="row">
             <div className="col-md-auto">
               <button type="button" className="btn btn-primary" onClick={goBack}>
-                Cancel
+                Done
               </button>
             </div>
             <div className="col-md-auto">
               <button type="submit" className="btn btn-secondary">
-                Submit
+                Save
               </button>
             </div>
           </div>
