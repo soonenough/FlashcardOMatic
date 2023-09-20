@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { listCards, readCard } from "../utils/api";
+import { readCard } from "../utils/api";
 import { readDeck } from "../utils/api";
+import AddCardsButton from "../Home/AddCardsButton";
 import { useParams, Link } from 'react-router-dom'; // Import useHistory
 import { HouseFill } from 'react-bootstrap-icons';
 
@@ -36,21 +37,21 @@ function StudyCard() {
   useEffect(() => {
 
     const fetchCards = async () => {
-        try {
-            const deckData = await readDeck(deckId);
-            setDeck(deckData);
-            setCards(deckData.cards);
-        } catch (error) {
-            console.error('Error fetching deck data:', error);
-        }
+      try {
+        const deckData = await readDeck(deckId);
+        setDeck(deckData);
+        setCards(deckData.cards);
+      } catch (error) {
+        console.error('Error fetching deck data:', error);
+      }
     };
 
     if (deckId) {
-        fetchCards();
+      fetchCards();
     }
-}, [deckId]);
+  }, [deckId]);
 
-  
+
 
   useEffect(() => {
     const fetchCard = async () => {
@@ -132,7 +133,15 @@ function StudyCard() {
             </ol>
           </nav>
         </div>
-        <h1>Not Enough Cards</h1>
+        <div className="container">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Not Enough Cards</h5>
+              <p class="card-text">In order to study a deck it needs to have at least 3 cards.</p>
+              <AddCardsButton deckId={deckId} />
+            </div>
+          </div>
+        </div>
       </>
 
     );
