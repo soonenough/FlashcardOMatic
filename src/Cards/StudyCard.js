@@ -132,18 +132,19 @@ function StudyCard() {
               <li className="breadcrumb-item">Study</li>
             </ol>
           </nav>
-        </div>
-        <div className="container">
-          <div class="card">
+
+          <div class="card text-center">
+            <div class="card-header">
+              Study: {deck.name}
+            </div>
             <div class="card-body">
-              <h5 class="card-title">Not Enough Cards</h5>
-              <p class="card-text">In order to study a deck it needs to have at least 3 cards.</p>
+              <h5 class="card-title">Not Enough Cards!</h5>
+              <p class="card-text">In order to study a deck it needs to have at least 3 cards. This deck has {cards.length} cards.</p>
               <AddCardsButton deckId={deckId} />
             </div>
           </div>
         </div>
       </>
-
     );
   }
 }
