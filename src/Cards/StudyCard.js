@@ -124,27 +124,33 @@ function StudyCard() {
   } else {
     return (
       <>
-        <div className="container">
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item"><Link to="/"><HouseFill /> Home</Link></li>
-              {deck && <li className="breadcrumb-item"><Link to={`/decks/${deckId}`}>{deck.name}</Link></li>}
-              <li className="breadcrumb-item">Study</li>
-            </ol>
-          </nav>
+  <div className="container">
+    <nav aria-label="breadcrumb">
+      <ol className="breadcrumb">
+        <li className="breadcrumb-item"><Link to="/"><HouseFill /> Home</Link></li>
+        {deck && (
+          <li className="breadcrumb-item">
+            <Link to={`/decks/${deckId}`}>{deck.name}</Link>
+          </li>
+        )}
+        <li className="breadcrumb-item">Study</li>
+      </ol>
+    </nav>
 
-          <div class="card text-center">
-            <div class="card-header">
-              Study: {deck.name}
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Not Enough Cards!</h5>
-              <p class="card-text">In order to study a deck it needs to have at least 3 cards. This deck has {cards.length} cards.</p>
-              <AddCardsButton deckId={deckId} />
-            </div>
-          </div>
+    {deck && ( // Check if deck is not null
+      <div class="card text-center">
+        <div class="card-header">
+          Study: {deck.name}
         </div>
-      </>
+        <div class="card-body">
+          <h5 class="card-title">Not Enough Cards!</h5>
+          <p class="card-text">In order to study a deck, it needs to have at least 3 cards.</p>
+          <AddCardsButton deckId={deckId} />
+        </div>
+      </div>
+    )}
+  </div>
+</>
     );
   }
 }
