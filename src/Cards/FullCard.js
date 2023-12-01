@@ -27,7 +27,7 @@ function FullCard() {
     return () => {
       controller.abort();
     };
-  }, [cards]);
+  }, [deckId]);
 
   return (
     <>

@@ -29,7 +29,9 @@ function CardForm() {
       };
 
       if (cardId) {
-        await updateCard(cardId, cardData);
+        cardData.id = cardId;
+        cardData.deckId = parseInt(deckId);
+        await updateCard(cardData);
       } else {
         await createCard(deckId, cardData);
       }
@@ -115,7 +117,10 @@ function CardForm() {
               rows="3"
               placeholder="Back"
               value={back}
-              onChange={(e) => setBack(e.target.value)}
+              onChange={(e) => {
+                console.log("change back", e.target.value);
+                setBack(e.target.value);
+              }}
             ></textarea>
           </div>
           <div className="row">
@@ -125,7 +130,7 @@ function CardForm() {
               </button>
             </div>
             <div className="col-md-auto">
-              <button type="submit" className="btn btn-secondary">
+              <button type="submit" className="btn btn-secondary" onClick={submitHandler}>
                 Save
               </button>
             </div>

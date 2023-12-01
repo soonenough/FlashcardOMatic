@@ -29,7 +29,7 @@ function HomeDeck() {
     return () => {
       controller.abort();
     };
-  }, [decks]);
+  }, []);
 
   return (
     <div className="row">
