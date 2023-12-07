@@ -49,6 +49,7 @@ function DeckForm({ signal }) {
             }
     
             history.goBack();
+            history.push(/);
         } catch (error) {
             console.error('Error submitting deck:', error);
         }

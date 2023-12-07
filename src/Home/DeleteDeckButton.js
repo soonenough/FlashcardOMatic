@@ -25,6 +25,7 @@ function DeleteButton({ deckId }) {
                 
             } catch (error) {
                 console.error(error);
+                window.location.reload();
             }
         }
     }
