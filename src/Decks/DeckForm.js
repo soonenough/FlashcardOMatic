@@ -48,8 +48,7 @@ function DeckForm({ signal }) {
                 await createDeck(deckData);
             }
     
-            history.goBack();
-            history.push(/);
+            history.push("/");
         } catch (error) {
             console.error('Error submitting deck:', error);
         }
